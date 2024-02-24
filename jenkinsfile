@@ -19,14 +19,14 @@ pipeline {
         stage('Deploy') { 
             steps {
                 sshagent(['tomcat-tej']) {
-            sh """
-                    scp -o StrictHostKeyChecking=no target/hello-world-war.war  ubuntu@34.228.144.148:/home/ubuntu/apache-tomcat-9.0.86/webapps/
+            
+                  sh  "scp -o StrictHostKeyChecking=no target/hello-world-war.war  ubuntu@172.31.28.177:/home/ubuntu/apache-tomcat-9.0.86/webapps/"
                     
-                    ssh -tt ubuntu@34.228.144.148:/home/ubuntu/apache-tomcat-9.0.86/bin/shutdown.sh
+                  sh  "ssh -tt ubuntu@172.31.28.177:/home/ubuntu/apache-tomcat-9.0.86/bin/shutdown.sh"
                     
-                    ssh -tt ubuntu@34.228.144.148:/home/ubuntu/apache-tomcat-9.0.86/bin/startup.sh
+                  sh  "ssh -tt ubuntu@172.31.28.177:/home/ubuntu/apache-tomcat-9.0.86/bin/startup.sh"
                 
-                """
+        
                 }
            }
         }
