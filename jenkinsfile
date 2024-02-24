@@ -18,13 +18,7 @@ pipeline {
         }
         stage('Deploy') { 
             steps {
-                sshagent(['tomcat-tej']) {
-            
-                  sh  "scp -o StrictHostKeyChecking=no target/hello-world-war.war  ubuntu@172.31.28.177:/home/ubuntu/apache-tomcat-9.0.86/webapps/"
-                    
-                  sh  "ssh -tt ubuntu@172.31.28.177:/home/ubuntu/apache-tomcat-9.0.86/bin/shutdown.sh"
-                    
-                  sh  "ssh -tt ubuntu@172.31.28.177:/home/ubuntu/apache-tomcat-9.0.86/bin/startup.sh"
+                //deploy adapters: [tomcat9(credentialsID: 'tomcat-tej', path: '', url: 'http://34.228.144.148:8080/')], contextpath: null, war: 'target/*.war'
                 
         
                 }
