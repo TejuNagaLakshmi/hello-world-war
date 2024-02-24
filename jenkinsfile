@@ -22,9 +22,9 @@ pipeline {
             sh """
                     scp -o StrictHostKeyChecking=no target/hello-world-war.war  ubuntu@172.31.28.177:/home/ubuntu/apache-tomcat-9.0.86/webapps/
                     
-                    ssh ubuntu@172.31.28.177:/home/ubuntu/apache-tomcat-9.0.86/bin/shutdown.sh
+                    ssh -tt ubuntu@172.31.28.177:/home/ubuntu/apache-tomcat-9.0.86/bin/shutdown.sh
                     
-                    ssh ubuntu@172.31.28.177:/home/ubuntu/apache-tomcat-9.0.86/bin/startup.sh
+                    ssh -tt ubuntu@172.31.28.177:/home/ubuntu/apache-tomcat-9.0.86/bin/startup.sh
                 
                 """
                 }
