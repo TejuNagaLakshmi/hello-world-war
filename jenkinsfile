@@ -1,0 +1,34 @@
+pipeline {
+    agent any 
+    stages {
+        stage('gitcheckout') { 
+            steps {
+                git credentialsId: 'teju02', url: 'https://github.com/TejuNagaLakshmi/hello-world-war.git' 
+            }
+        }
+        stage('Build') { 
+            steps {
+                sh "mvn clean package"
+                sh "mv target/*.war target/hello-world-war.war"
+            }
+        }
+        stage('Deploy') { 
+            steps {
+                sshagent(['tomcat-tej']) {
+            sh """
+                    scp -o StrictHostKeyChecking=no target/hello-world-war.war  ubuntu@172.31.28.177:/home/ubuntu/apache-tomcat-9.0.86/webapps/
+                    
+                    ssh ubuntu@172.31.28.177:/home/ubuntu/apache-tomcat-9.0.86/bin/shutdown.sh
+                    
+                    ssh ubuntu@172.31.28.177:/home/ubuntu/apache-tomcat-9.0.86/bin/startup.sh
+                
+                """
+                }
+           }
+        }
+    }
+}
+
+    
+      
+      
