@@ -19,7 +19,10 @@ pipeline {
         stage('Deploy') { 
             steps {
                 
-                deploy adapters: [tomcat9(credentialsID: 'tomcat-tej', path: '', url: 'http://54.221.55.138:8080/')], contextPath: 'app', war: 'target/*.war'
+                sshagent(['deploy_user']) {
+                   sh "scp -o StrictHostKeyChecking=no project3/target/ hello-world-war.war ubuntu@54.221.55.138:/home/ubuntu/apache-tomcat-9.0.86/webapp"
+			
+                }
                 
         
             }
