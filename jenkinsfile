@@ -18,15 +18,11 @@ pipeline {
         }
         stage('Deploy') { 
             steps {
-                //deploy adapters: [tomcat9(credentialsID: 'tomcat-tej', path: '', url: 'http://34.228.144.148:8080/')], contextpath: null, war: 'target/*.war'
+                
+                deploy adapters: [tomcat9(credentialsID: 'tomcat-tej', path: '', url: 'http://34.228.144.148:8080/')], contextPath: null, war: 'target/*.war'
                 
         
-                }
-           }
+            }
         }
     }
 }
-
-    
-      
-      
